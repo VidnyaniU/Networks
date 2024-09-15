@@ -9,13 +9,18 @@ client_socket.connect(server_address)
 
 try:
     #send message
-    message = "Hello server!".encode()
-    print("Sending:",message.decode())
-    client_socket.sendall(message)
+    while True:
+        message = input ("Enter the message ('bye' to exit) :: ")
+        client_socket.sendall(message.encode())
 
-    #receive message
-    data = client_socket.recv(1024) #bufsize = 1024
-    print("Received :: ",data.decode())
+        #receive message
+        data = client_socket.recv(1024) #bufsize = 1024
+        print("Received :: ",data.decode())
+
+        if message.strip().lower() == "bye":
+            print("Closing connection...")
+            break
 
 finally:
     client_socket.close()
+    print("Connection closed!")

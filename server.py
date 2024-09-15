@@ -15,27 +15,34 @@ server_socket.bind(server_address)
 server_socket.listen(1)
 print("Server is listening on" , server_address)
 
-while True:
-    print("Waiting for connection...")
-    #to accept incoming connection request and save  client address
-    connection , client_address = server_socket.accept()
+# while True:
+print("Waiting for connection...")
+#to accept incoming connection request and save  client address
+connection , client_address = server_socket.accept()
 
-    try:
-        print("Connection from ",client_address)
+try:
+    print("Connection from ",client_address)
 
-        #receive the data in small chunks
-        while True:
-            data = connection.recv(1024)
-            if data:
-                print("Received :: ",data.decode())
+    #receive the data in small chunks
+    while True:
+        data = connection.recv(1024)
+        message = data.decode()
+        if data:
+            print("Received :: ",message)
 
-                #send the same data back to the client 
-                connection.sendall(data)
+            #if the message is "bye" close the connection
+            if message.strip().lower() == "bye":
+                    print("Closing connection...")
+                    break
+
+            #send the same data back to the client 
+            connection.sendall(data)
             
-            else:
-                break
+        else:
+            break
 
 
-    finally:
-        #close the connection
-        connection.close()
+finally:
+    #close the connection
+    connection.close()
+    print("Connection closed!")
