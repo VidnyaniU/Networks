@@ -56,12 +56,14 @@ def start_client(host='127.0.0.1', port=12345):
 
     client.close()
 
+
+#main function
 if __name__ == "__main__":
     choice = input("Type 'server' to start server or 'client' to start client: ").strip().lower()
     if choice == 'server':
         start_server()
     elif choice == 'client':
-        ip_address = input("Enter server IP address: ").strip()  # Prompt for server IP
+        ip_address = input("Enter server IP address: ").strip()
         start_client(host=ip_address)
     else:
         print("Invalid choice. Please type 'server' or 'client'.")
