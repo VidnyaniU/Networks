@@ -1,16 +1,18 @@
-import socket 
-import threading
+import networkx as nx
 
-# Function to handle incoming messages from the client
-def handle_client(client_socket):
-    while True:
-        try:
-            msg = client_socket.recv(1024).decode('utf-8')
-            if msg.lower() == 'quit':
-                print("Client has disconnected.")
-                break
-            print(f"Received: {msg}")
-        except OSError:
-            print("Client has disconnected.")
-            break
-    client_socket.close()
+# Create a directed graph
+G = nx.DiGraph()
+
+# Add edges along with their weights (cost)
+G.add_edge('A', 'B', weight=1)
+G.add_edge('A', 'C', weight=4)
+G.add_edge('B', 'C', weight=2)
+G.add_edge('B', 'D', weight=5)
+G.add_edge('C', 'D', weight=1)
+
+# Find the shortest path from A to D
+shortest_path = nx.dijkstra_path(G, source='A', target='D')
+path_length = nx.dijkstra_path_length(G, source='A', target='D')
+
+print("Shortest path from A to D:", shortest_path)
+print("Length of the shortest path:", path_length)
