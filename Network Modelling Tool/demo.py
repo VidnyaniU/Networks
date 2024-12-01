@@ -17,3 +17,9 @@ class Device:
     
     def __str__(self):
         return f"Device: {self.name}, Interfaces: {self.interfaces}"
+class Subnet:
+    def __init__(self, network, mask):
+        self.network = ipaddress.ip_network(f"{network}/{mask}", strict=False)
+
+    def __str__(self):
+        return f"Subnet: {self.network}"
