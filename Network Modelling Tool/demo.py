@@ -17,6 +17,11 @@ class Device:
     
     def __str__(self):
         return f"Device: {self.name}, Interfaces: {self.interfaces}"
+    
+    def get_ip(self, interface_name):
+        # Return the IP address of a given interface
+        return self.interfaces.get(interface_name, None)
+    
 class Subnet:
     def __init__(self, network, mask):
         self.network = ipaddress.ip_network(f"{network}/{mask}", strict=False)
